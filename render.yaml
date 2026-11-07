@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: hhbal
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./public
+    domains:
+      - hhbal.com
+      - www.hhbal.com

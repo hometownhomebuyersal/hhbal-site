@@ -1,0 +1,4 @@
+.netlify/
+NETLIFY_CLAIM.txt
+shots/
+__pycache__/
