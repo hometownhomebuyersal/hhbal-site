@@ -1,11 +1,12 @@
 import os
 OUT='/workspace/hhbal-site'
 PHONE='205-914-4215'; TEL='tel:+12059144215'; SMS='sms:+12059144215'
-EMAIL='hometownhomebuyersal@gmail.com'
+EMAIL='joshua@hhbal.com'
+LEAD_EMAIL='hometownhomebuyersal@gmail.com'
 GREVIEWS='https://search.google.com/local/reviews?placeid=ChIJfT1eZ8mdiYgRRodK3oOmLRw'
 GWRITE='https://search.google.com/local/writereview?placeid=ChIJfT1eZ8mdiYgRRodK3oOmLRw'
 GMAPS='https://www.google.com/maps/place/?q=place_id:ChIJfT1eZ8mdiYgRRodK3oOmLRw'
-FORM_ENDPOINT='https://formsubmit.co/ajax/'+EMAIL
+FORM_ENDPOINT='https://formsubmit.co/ajax/'+LEAD_EMAIL
 G_ICON='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>'
 ROOF='<svg class="roof" viewBox="0 0 500 120" aria-hidden="true"><path d="M10 110 L170 20 L330 110" fill="none" stroke="#fff" stroke-width="16"/><rect x="200" y="75" width="40" height="30" fill="#fff"/><rect x="360" y="75" width="40" height="30" fill="#fff"/><path d="M300 110 L400 50 L500 110" fill="none" stroke="#fff" stroke-width="16"/></svg>'
 
@@ -51,7 +52,7 @@ def gbadge(): return f'<a class="gbadge" href="{GREVIEWS}" target="_blank" rel="
 FOOTER=f'''<footer class="ftr"><div class="wrap"><div class="cols">
 <div class="flogo"><img src="/img/logo.webp" width="453" height="120" alt="Hometown Home Buyers" loading="lazy">{gbadge()}</div>
 <div><h4>Quick Links</h4><ul><li><a href="/#reviews">Success Stories</a></li><li><a href="/#offer">Get An Offer</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/#contact">Contact Us</a></li></ul></div>
-<div id="contact"><h4>Contact Us</h4><ul><li><a href="{TEL}" style="color:var(--accent-d);text-decoration:underline">{PHONE}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>Springville, AL 35146</li><li>Serving St. Clair County &amp; Greater Birmingham</li></ul></div>
+<div id="contact"><h4>Contact Us</h4><ul><li><a href="{TEL}" style="color:var(--accent-d);text-decoration:underline">{PHONE}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>7050 Gadsden Hwy<br>Trussville, AL 35173</li><li>8195 US-11<br>Springville, AL 35146</li><li>Servicing the Southeast</li></ul></div>
 </div><p class="legal">{CONSENT_TXT.replace(" and <a href=\"/terms.html\">Terms of Use</a>","")}</p><p class="copy">© 2026 Hometown Home Buyers LLC · hhbal.com</p></div></footer>
 <div class="callbar"><a href="{TEL}">📞 Call {PHONE}</a><a href="{SMS}">💬 Text Us</a></div>
 <script src="/main.js" defer></script></body></html>'''
@@ -70,7 +71,7 @@ def rcards():
     return '\n'.join(out)
 
 index=head('Sell My House Fast for Cash in Alabama | Hometown Home Buyers','Sell your house fast for cash in Springville, St. Clair County, and the Birmingham area. No commissions, no fees, no repairs. Call 205-914-4215 for a fair cash offer.','/',
- '<link rel="preload" as="image" href="/img/hero-m.webp" media="(max-width:900px)"><link rel="preload" as="image" href="/img/hero.webp" media="(min-width:901px)"><script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Hometown Home Buyers LLC","url":"https://hhbal.com","telephone":"+1-205-914-4215","email":"hometownhomebuyersal@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Springville","addressRegion":"AL","postalCode":"35146","addressCountry":"US"},"areaServed":["Springville AL","St. Clair County AL","Birmingham AL"]}</script>')+HEADER+f'''
+ '<link rel="preload" as="image" href="/img/hero-m.webp" media="(max-width:900px)"><link rel="preload" as="image" href="/img/hero.webp" media="(min-width:901px)"><script type="application/ld+json">{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Hometown Home Buyers LLC","url":"https://hhbal.com","telephone":"+1-205-914-4215","email":"joshua@hhbal.com","address":{"@type":"PostalAddress","addressLocality":"Springville","addressRegion":"AL","postalCode":"35146","addressCountry":"US"},"areaServed":"Southeastern United States"}</script>')+HEADER+f'''
 <main>
 <section class="hero" id="offer"><div class="wrap"><div><h1>Sell Your House Fast With Hometown Home Buyers</h1><p>Selling your Alabama home just got simple. No commissions. No fees.<br>We buy AS-IS, and there's no realtor needed.</p></div>
 <div>{form('lead-top')}</div></div></section>
@@ -115,7 +116,7 @@ FAQ=[
 ("Do I have to make repairs or clean out the house?","No. We buy as-is. Take what you want and leave the rest. We'll handle it."),
 ("Are there any fees or commissions?","No. There are no agent commissions and no hidden fees, and in most cases we cover the normal closing costs."),
 ("How do you decide on my offer?","We look at your home's location, condition, needed repairs, and recent nearby sales. Then we give you a fair, no-obligation cash offer."),
-("What areas do you buy in?","Springville, St. Clair County, and the greater Birmingham area, plus other parts of Alabama. Call and ask."),
+("What areas do you buy in?","We're servicing the Southeast. Call and ask about your area."),
 ("Is there any obligation?","None. If our offer doesn't work for you, just say no thanks."),
 ]
 sub('faq.html','FAQ | Hometown Home Buyers','Common questions about selling your Alabama house for cash to Hometown Home Buyers.',
