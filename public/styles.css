@@ -115,7 +115,7 @@ h1,h2,h3{font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Arial,sans-se
 .cta-final .wrap{position:relative;max-width:640px}
 .cta-final h2{text-align:center;font-size:44px;font-weight:800;margin-bottom:28px}
 /* footer */
-.ftr{padding:50px 0 30px;font-size:16px}
+.ftr{padding:50px 0 30px;font-size:16px;background:#f4f5f6}
 .ftr .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:50px}
 .ftr .flogo{display:flex;flex-direction:column;align-items:center;gap:24px}
 .ftr .flogo>img{max-width:260px}
@@ -186,3 +186,29 @@ h1,h2,h3{font-family:Montserrat,system-ui,-apple-system,"Segoe UI",Arial,sans-se
  .callbar a:last-child{background:var(--accent)}
  body{padding-bottom:52px}
 }
+/* ---- match reference computed styles ---- */
+body{font-size:17.4px}
+h1,h2,h3,h4{color:#1b1b1b}
+.btn,.nav a.btn,.callbar a{font-family:"Source Sans 3","Source Sans Pro",sans-serif;font-size:17.4px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:4px;padding:10px 20px;line-height:27.84px}
+.nav a.btn{padding:8px 20px}
+.btn-block{padding:10px 20px}
+.hero h1{font-size:43.92px;font-weight:400;line-height:1.02;padding-right:70px;color:#fff}
+.why h2,.how h2,.stories h2,.cta-final h2{font-size:43.92px;font-weight:700;letter-spacing:-.5px;line-height:1.02}
+.cta-final h2{color:#fff}
+.sit h2{font-size:30.45px;font-weight:700;letter-spacing:-.5px;line-height:1.02}
+.step h3,.step h4{font-size:17.4px;font-weight:400;letter-spacing:-.56px;line-height:1.02}
+.ftr h4{font-size:17.4px;font-weight:400;letter-spacing:-.56px;line-height:1.02}
+.lead label{font-size:14px;font-weight:500;letter-spacing:-.174px;line-height:21px;margin-bottom:8px}
+.lead input[type=text],.lead input[type=tel],.lead input[type=email],.lead textarea{height:59px;padding:15px 10px;border:2px solid #ccc;border-radius:4px;font-size:17.4px;color:#000}
+@media (max-width:900px){.hero h1{font-size:32px;padding-right:0}.why h2,.how h2,.stories h2,.cta-final h2{font-size:32px}.sit h2{font-size:26px}body{font-size:16px}}
+.rgrid{grid-template-columns:repeat(5,1fr);gap:16px}
+.rcard .bubble{min-height:180px;padding:16px}
+.rcard .bubble .stars{font-size:18px;margin-bottom:8px}
+.rcard .bubble p{font-size:15px;line-height:1.45}
+.rcard .bubble p.clamp{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.rmore-l{display:inline-block;margin-top:4px;font-size:14px;color:#1a73e8;text-decoration:none}
+.rmore a{font-size:13px;padding:8px 26px;border-radius:3px;text-transform:none}
+@media (max-width:1100px){.rgrid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:900px){.rgrid{grid-template-columns:1fr}}
+.hero h1,.step h3,.ftr h4{font-weight:700}
+.ftr h4{text-transform:uppercase}

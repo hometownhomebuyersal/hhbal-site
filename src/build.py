@@ -57,17 +57,23 @@ FOOTER=f'''<footer class="ftr"><div class="wrap"><div class="cols">
 <div class="callbar"><a href="{TEL}">📞 Call {PHONE}</a><a href="{SMS}">💬 Text Us</a></div>
 <script src="/main.js" defer></script></body></html>'''
 
-REVIEWS=[  # real Google review snippets (Google Maps place data, Nov 6 2026); full text and reviewer names not publicly retrievable without sign-in
- ("Josh gave us the best offer for our house in Georgia with CASH OFFER.",'G'),
- ("Great company to work with.",'G'),
+REVIEWS=[  # real Google reviews, copied verbatim from Google Maps Nov 6 2026 (5.0 from 32)
+ ("Paul Jeffres","a month ago","Josh was great to deal with. We came to an agreed price, he took care of setting up the closing and we closed fast. Sold the old house for my mom and got her paid while being very respectful. Thanks for working with us."),
+ ("Abby Hamrick Pate","a month ago","I absolutely love working with this team! They do an incredible job from start to finish and truly care about the quality of their work. Their renovations are thoughtful, well done, and they pay attention to the details that make a home stand out. As a Realtor, it makes my job so much easier when I can confidently show and market a property knowing the work behind it was done right. They're professional, responsive, easy to work with, and always willing to go the extra mile. I would highly recommend them to anyone looking for a trustworthy and talented team for a renovation or investment project. I'm always excited to see what they do with the next one!"),
+ ("Heather Davis","2 months ago","Awesome company! Josh was great. He made selling my house a breeze. He was fair, transparent, and responsive. Overall great guy! It was a quick and simple process. Highly recommend!"),
+ ("Zach Farmer","2 months ago","I've worked with Josh for years now. He has a wealth of knowledge in the real estate world and is not afraid to share it. Nothing but reliable and high quality housing comes from this group. Whatever your need is, Josh will make it happen."),
+ ("Laura Mims","2 months ago","I've had the opportunity to work with him on multiple transactions, and he's always been great to work with. He's knowledgeable, professional, responsive, and does what he says he's going to do. He makes the process easy and straightforward, and I always appreciate working with him. I would definitely recommend him to anyone looking for a reliable and experienced real estate investor!"),
 ]
 def rcards():
+    import html as _h
     out=[]
-    for txt,_ in REVIEWS:
-        out.append(f'''<div class="rcard"><div class="bubble"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p>“{txt}”</p></div>
-<div class="who"><div class="av">G{G_ICON}</div><div><b>Google reviewer</b><small>5-star review · excerpt</small></div></div></div>''')
-    out.append(f'''<div class="rcard summary"><div class="bubble"><div class="big">5.0</div><div class="stars">★★★★★</div><p>Average from <b>32</b> Google reviews</p><p style="margin-top:8px"><a href="{GREVIEWS}" target="_blank" rel="noopener">Read them all on Google →</a></p></div>
-<div class="who"><div class="av" style="background:var(--brand)">H</div><div><b>Hometown Home Buyers LLC</b><small>Springville, AL</small></div></div></div>''')
+    RM='<a class="rmore-l" href="#" onclick="this.previousElementSibling.classList.remove(&quot;clamp&quot;);this.remove();return false">Read more</a>'
+    for name,when,txt in REVIEWS:
+        long=len(txt)>150
+        cls='rt clamp' if long else 'rt'
+        more=RM if long else ''
+        out.append(f'''<div class="rcard"><div class="bubble"><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><p class="{cls}">{_h.escape(txt)}</p>{more}</div>
+<div class="who"><div class="av">{name[0]}{G_ICON}</div><div><b>{_h.escape(name)}</b><small>{when}</small></div></div></div>''')
     return '\n'.join(out)
 
 index=head('Sell My House Fast for Cash in Alabama | Hometown Home Buyers','Sell your house fast for cash in Springville, St. Clair County, and the Birmingham area. No commissions, no fees, no repairs. Call 205-914-4215 for a fair cash offer.','/',
@@ -85,14 +91,14 @@ index=head('Sell My House Fast for Cash in Alabama | Hometown Home Buyers','Sell
 <div class="center"><a class="btn" href="#offer">Get An Offer</a></div></div></section>
 
 <section class="how"><div class="wrap"><h2>How It Works</h2><div class="cards">
-<div class="step"><div class="num">01</div><div class="card"><img src="/img/step1.webp" width="800" height="600" alt="Homeowner calling on a phone" loading="lazy"><h3>Request Your Offer</h3><p>Call or text us at <a href="{TEL}">{PHONE}</a> or fill out the form on this page. We'll ask a few quick questions so we understand your home's condition and your goals.</p></div></div>
-<div class="step"><div class="num">02</div><div class="card"><img src="/img/step2.webp" width="800" height="600" alt="Happy couple reviewing their cash offer" loading="lazy"><h3>Get Your Cash Offer</h3><p>Once we've looked at your property, we'll give you a no-obligation, all-cash offer, often the same day. Say yes or no. There are no fees and no pressure.</p></div></div>
+<div class="step"><div class="num">01</div><div class="card"><img src="/img/step1.webp" width="800" height="600" alt="Homeowner calling on a phone" loading="lazy"><h3>Request Offer</h3><p>Call or text us at <a href="{TEL}">{PHONE}</a> or fill out the form on this page. We'll ask a few quick questions so we understand your home's condition and your goals.</p></div></div>
+<div class="step"><div class="num">02</div><div class="card"><img src="/img/step2.webp" width="800" height="600" alt="Happy couple reviewing their cash offer" loading="lazy"><h3>Receive Your Offer</h3><p>Once we've looked at your property, we'll give you a no-obligation, all-cash offer, often the same day. Say yes or no. There are no fees and no pressure.</p></div></div>
 <div class="step"><div class="num">03</div><div class="card"><img src="/img/step3.webp" width="800" height="600" alt="Couple carrying moving boxes" loading="lazy"><h3>Sign &amp; Close</h3><p>When we agree on a price, you pick the closing date. We close with a local title company and you get paid. We work around your schedule, not ours!</p></div></div>
 </div></div>{ROOF}</section>
 
 <section class="band"><div class="wrap"><img class="lg" src="/img/logo.webp" width="453" height="120" alt="Hometown Home Buyers" loading="lazy"><ul><li>We Can Buy Your House Fast</li><li>We Keep The Process Easy</li><li>You Won't Pay Hidden Fees</li></ul></div></section>
 
-<section class="sit"><div class="wrap"><h2 class="center">We Buy Alabama Houses For Cash “As-Is”, Whatever The Condition!</h2>
+<section class="sit"><div class="wrap"><h2 class="center">We Buy Houses For Cash “As-Is” Regardless Of The Condition!</h2>
 <p class="lead-p">At Hometown Home Buyers, a house never has to be perfect. We buy every kind of property, from Springville and St. Clair County to Birmingham, so you can close fast and keep more money in your pocket!</p>
 <div class="icons">{''.join(f'<div>{s}<span>{n}</span></div>' for n,s in ICONS)}</div>
 <div class="center"><a class="btn" href="{TEL}">Call {PHONE}</a></div></div></section>
@@ -101,7 +107,7 @@ index=head('Sell My House Fast for Cash in Alabama | Hometown Home Buyers','Sell
 <div class="rbox"><h3>What our customers say</h3>
 <div class="rhead"><div><div class="gname">{G_ICON}<span>Google Reviews</span></div><div class="rscore"><b>5.0</b><span class="stars">★★★★★</span><small>(32)</small></div></div><a class="rbtn" href="{GWRITE}" target="_blank" rel="noopener">Review us on Google</a></div>
 <div class="rgrid">{rcards()}</div>
-<div class="rmore"><a href="{GREVIEWS}" target="_blank" rel="noopener">See All 32 Reviews</a></div></div>
+<div class="rmore"><a href="{GREVIEWS}" target="_blank" rel="noopener">Read More</a></div></div>
 <div class="center"><a class="btn" href="#offer">Get Offer</a></div></div>{ROOF}</section>
 
 <section class="cta-final" id="get-offer"><div class="wrap"><h2>We Buy Houses At Any Price and In Any Condition!</h2>{form('lead-bottom')}</div></section>
@@ -120,7 +126,7 @@ FAQ=[
 ("Is there any obligation?","None. If our offer doesn't work for you, just say no thanks."),
 ]
 sub('faq.html','FAQ | Hometown Home Buyers','Common questions about selling your Alabama house for cash to Hometown Home Buyers.',
- '<h1>Frequently Asked Questions</h1><div class="faq">'+''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)+f'</div><p style="margin-top:30px"><a class="btn" href="/#offer">Get Your Cash Offer</a> &nbsp; or call <a href="{TEL}">{PHONE}</a></p>')
+ '<h1>Frequently Asked Questions</h1><div class="faq">'+''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)+f'</div><p style="margin-top:30px"><a class="btn" href="/#offer">Receive Your Offer</a> &nbsp; or call <a href="{TEL}">{PHONE}</a></p>')
 sub('privacy.html','Privacy Policy | Hometown Home Buyers','Privacy policy for hhbal.com.',f'''<h1>Privacy Policy</h1><p>Hometown Home Buyers LLC ("we") collects the information you submit on this website, such as your property address, phone number, email, and comments, only so we can respond to your request and discuss buying your property.</p>
 <p><b>Text messages:</b> If you check the SMS consent box, we may text you about your property, appointments, and updates. Message frequency varies and message and data rates may apply. Reply STOP to opt out or HELP for help. We do not sell or share your mobile number or SMS consent with third parties or affiliates for their marketing.</p>
 <p>We do not sell your personal information. Form submissions go through a third-party form service (FormSubmit) and are delivered to our email. Questions? Email <a href="mailto:{EMAIL}">{EMAIL}</a> or call <a href="{TEL}">{PHONE}</a>.</p>''')
