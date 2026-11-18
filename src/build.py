@@ -1,5 +1,10 @@
+import html as _html
 import os
-OUT='/workspace/hhbal-site'
+import sys
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import city_pages
+OUT = os.path.dirname(HERE)
 PHONE='205-914-4215'; TEL='tel:+12059144215'; SMS='sms:+12059144215'
 EMAIL='joshua@hhbal.com'
 LEAD_EMAIL='hometownhomebuyersal@gmail.com'
@@ -25,21 +30,24 @@ ICONS=[
 FONTS='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Source+Sans+3:wght@400;700&display=swap" rel="stylesheet">'
 
 def head(title,desc,canon,extra=''):
+    url=f'https://hhbal.com{canon}'
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title}</title><meta name="description" content="{desc}"><link rel="canonical" href="https://hhbal.com{canon}">
+<title>{title}</title><meta name="description" content="{desc}"><link rel="canonical" href="{url}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Hometown Home Buyers"><meta property="og:url" content="{url}">
 <meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:image" content="https://hhbal.com/img/hero.webp"><meta name="theme-color" content="#375875">
 <link rel="icon" href="/favicon.png">{FONTS}<link rel="stylesheet" href="/styles.css">{extra}</head><body>'''
 
 HEADER=f'''<header class="hdr"><div class="wrap"><a class="logo" href="/" aria-label="Hometown Home Buyers home"><img src="/img/logo.webp" width="453" height="120" alt="Hometown Home Buyers – Real Estate Investments"></a>
 <button class="menu-btn" aria-label="Menu" onclick="document.querySelector('.nav').classList.toggle('open')"><span></span><span></span><span></span></button>
-<nav class="nav"><a href="/">Home</a><a href="/#reviews">Success Stories</a><a href="/#offer">Get A Cash Offer</a><a class="btn" href="{TEL}">{PHONE}</a></nav></div></header>'''
+<nav class="nav"><a href="/">Home</a><a href="/#areas">Areas We Serve</a><a href="/#reviews">Success Stories</a><a href="/#offer">Get A Cash Offer</a><a class="btn" href="{TEL}">{PHONE}</a></nav></div></header>'''
 
 CONSENT_TXT=f'I agree to receive text messages from Hometown Home Buyers about my property, appointment scheduling, updates, and general questions. Reply STOP to opt out or HELP for help. Message frequency varies. Message and data rates may apply. See our <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Use</a> to learn how your information is used.'
 
-def form(fid, comments=False):
+def form(fid, comments=False, area=''):
     c=f'<label for="{fid}-c">Anything else we should know?</label><input type="text" id="{fid}-c" name="comments" autocomplete="off">' if comments else ''
+    area_h=f'<input type="hidden" name="area" value="{_html.escape(area)}">' if area else ''
     return f'''<form class="lead" id="{fid}" action="{FORM_ENDPOINT}" method="POST" novalidate>
-<input type="hidden" name="_subject" value="New cash offer request – hhbal.com"><input type="hidden" name="_template" value="table"><input type="hidden" name="form" value="{fid}">
+<input type="hidden" name="_subject" value="New cash offer request – hhbal.com"><input type="hidden" name="_template" value="table"><input type="hidden" name="form" value="{fid}">{area_h}
 <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 <label for="{fid}-a">Property Address <span class="req">*</span></label><input type="text" id="{fid}-a" name="property_address" placeholder="Enter Your Address" autocomplete="street-address" required>
 <div class="row2"><div><label for="{fid}-p">Phone <span class="req">*</span></label><input type="tel" id="{fid}-p" name="phone" autocomplete="tel" inputmode="tel" required></div>
@@ -53,7 +61,7 @@ FOOTER=f'''<footer class="ftr"><div class="wrap"><div class="cols">
 <div class="flogo"><img src="/img/logo.webp" width="453" height="120" alt="Hometown Home Buyers" loading="lazy">{gbadge()}</div>
 <div><h4>Quick Links</h4><ul><li><a href="/#reviews">Success Stories</a></li><li><a href="/#offer">Get An Offer</a></li><li><a href="/faq.html">FAQ</a></li><li><a href="/#contact">Contact Us</a></li></ul></div>
 <div id="contact"><h4>Contact Us</h4><ul><li><a href="{TEL}" style="color:var(--accent-d);text-decoration:underline">{PHONE}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>7050 Gadsden Hwy<br>Trussville, AL 35173</li><li>8195 US-11<br>Springville, AL 35146</li><li>Servicing the Southeast</li></ul></div>
-</div><p class="legal">{CONSENT_TXT.replace(" and <a href=\"/terms.html\">Terms of Use</a>","")}</p><p class="copy">© 2026 Hometown Home Buyers LLC · hhbal.com</p></div></footer>
+</div>{city_pages.areas_footer_html()}<p class="legal">{CONSENT_TXT.replace(" and <a href=\"/terms.html\">Terms of Use</a>","")}</p><p class="copy">© 2026 Hometown Home Buyers LLC · hhbal.com</p></div></footer>
 <div class="callbar"><a href="{TEL}">📞 Call {PHONE}</a><a href="{SMS}">💬 Text Us</a></div>
 <script src="/main.js" defer></script></body></html>'''
 
@@ -108,6 +116,8 @@ index=head('Sell My House Fast for Cash in Alabama | Hometown Home Buyers','Sell
 <div class="icons">{''.join(f'<div>{s}<span>{n}</span></div>' for n,s in ICONS)}</div>
 <div class="center"><a class="btn" href="{TEL}">Call {PHONE}</a></div></div></section>
 
+{city_pages.areas_section_html()}
+
 <section class="stories" id="reviews"><div class="wrap"><h2>Customer Success Stories</h2>
 <div class="rbox"><h3>What our customers say</h3>
 <div class="rhead"><div><div class="gname">{G_ICON}<span>Google Reviews</span></div><div class="rscore"><b>5.0</b><span class="stars">★★★★★</span><small>(32)</small></div></div><a class="rbtn" href="{GWRITE}" target="_blank" rel="noopener">Review us on Google</a></div>
@@ -127,14 +137,41 @@ FAQ=[
 ("Do I have to make repairs or clean out the house?","No. We buy as-is. Take what you want and leave the rest. We'll handle it."),
 ("Are there any fees or commissions?","No. There are no agent commissions and no hidden fees, and in most cases we cover the normal closing costs."),
 ("How do you decide on my offer?","We look at your home's location, condition, needed repairs, and recent nearby sales. Then we give you a fair, no-obligation cash offer."),
-("What areas do you buy in?","We're servicing the Southeast. Call and ask about your area."),
+("What areas do you buy in?","We're a Springville-based company servicing Alabama and the Southeast, including Birmingham, St. Clair County, and the other cities on our Areas We Serve list. Call and ask about your area."),
 ("Is there any obligation?","None. If our offer doesn't work for you, just say no thanks."),
 ]
-sub('faq.html','FAQ | Hometown Home Buyers','Common questions about selling your Alabama house for cash to Hometown Home Buyers.',
- '<h1>Frequently Asked Questions</h1><div class="faq">'+''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)+f'</div><p style="margin-top:30px"><a class="btn" href="/#offer">Receive Your Offer</a> &nbsp; or call <a href="{TEL}">{PHONE}</a></p>')
+faq_body='<h1>Frequently Asked Questions</h1><div class="faq">'+''.join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)+f'</div><p style="margin-top:30px"><a class="btn" href="/#offer">Receive Your Offer</a> &nbsp; or call <a href="{TEL}">{PHONE}</a></p>'
+open(f'{OUT}/faq.html','w').write(head('FAQ | Hometown Home Buyers','Common questions about selling your Alabama house for cash to Hometown Home Buyers.','/faq.html', city_pages.ld_json({"@context":"https://schema.org","@graph":[city_pages.business_schema({"@type":"State","name":"Alabama"}), city_pages.faq_schema(FAQ)]}))+HEADER+f'<main class="wrap page">{faq_body}</main>'+FOOTER)
 sub('privacy.html','Privacy Policy | Hometown Home Buyers','Privacy policy for hhbal.com.',f'''<h1>Privacy Policy</h1><p>Hometown Home Buyers LLC ("we") collects the information you submit on this website, such as your property address, phone number, email, and comments, only so we can respond to your request and discuss buying your property.</p>
 <p><b>Text messages:</b> If you check the SMS consent box, we may text you about your property, appointments, and updates. Message frequency varies and message and data rates may apply. Reply STOP to opt out or HELP for help. We do not sell or share your mobile number or SMS consent with third parties or affiliates for their marketing.</p>
 <p>We do not sell your personal information. Form submissions go through a third-party form service (FormSubmit) and are delivered to our email. Questions? Email <a href="mailto:{EMAIL}">{EMAIL}</a> or call <a href="{TEL}">{PHONE}</a>.</p>''')
 sub('terms.html','Terms of Use | Hometown Home Buyers','Terms of use for hhbal.com.',f'''<h1>Terms of Use</h1><p>Information on this website is for general purposes only. Submitting a form does not create any obligation to sell or buy. Any offer from Hometown Home Buyers LLC is subject to a property review and a signed written agreement.</p><p>Hometown Home Buyers LLC buys property as a principal and is not acting as your real estate agent. You may wish to consult a licensed agent or attorney before you sell.</p><p>Contact: <a href="mailto:{EMAIL}">{EMAIL}</a> · <a href="{TEL}">{PHONE}</a></p>''')
 sub('thank-you.html','Thank You | Hometown Home Buyers','Thanks for your request.',f'<h1>Thank you!</h1><p>We got your info and will reach out shortly. Need us sooner? Call or text <a href="{TEL}">{PHONE}</a>.</p>')
+
+HOW=f'''<section class="how"><div class="wrap"><h2>How It Works</h2><div class="cards">
+<div class="step"><div class="num">01</div><div class="card"><img src="/img/step1.webp" width="800" height="600" alt="Homeowner calling on a phone" loading="lazy"><h3>Request Offer</h3><p>Call or text us at <a href="{TEL}">{PHONE}</a> or fill out the form on this page. We'll ask a few quick questions so we understand your home's condition and your goals.</p></div></div>
+<div class="step"><div class="num">02</div><div class="card"><img src="/img/step2.webp" width="800" height="600" alt="Happy couple reviewing their cash offer" loading="lazy"><h3>Receive Your Offer</h3><p>Once we've looked at your property, we'll give you a no-obligation, all-cash offer, often the same day. Say yes or no. There are no fees and no pressure.</p></div></div>
+<div class="step"><div class="num">03</div><div class="card"><img src="/img/step3.webp" width="800" height="600" alt="Couple carrying moving boxes" loading="lazy"><h3>Sign &amp; Close</h3><p>When we agree on a price, you pick the closing date. We close with a local title company and you get paid. We work around your schedule, not ours!</p></div></div>
+</div></div>{ROOF}</section>'''
+
+city_urls = city_pages.write_city_pages(
+    OUT,
+    head=head,
+    header=HEADER,
+    footer=FOOTER,
+    form=form,
+    how_section=HOW,
+    phone=PHONE,
+    tel=TEL,
+)
+
+sitemap_urls = [
+    'https://hhbal.com/',
+    'https://hhbal.com/faq.html',
+    'https://hhbal.com/privacy.html',
+    'https://hhbal.com/terms.html',
+] + city_urls
+city_pages.write_sitemap(OUT, sitemap_urls)
+city_pages.write_robots(OUT)
+city_pages.write_llms(OUT)
 print('built')
